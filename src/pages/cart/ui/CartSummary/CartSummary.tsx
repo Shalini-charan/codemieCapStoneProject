@@ -5,6 +5,7 @@ import css from './CartSummary.module.css'
 
 type Props = {
   totalPrice: Penny
+  onCheckout?: () => void
 }
 
 export function CartSummary(props: Props) {
@@ -27,7 +28,7 @@ export function CartSummary(props: Props) {
         <div>{formatPrice(props.totalPrice)}</div>
       </div>
       <div className={cn(css.row, css.rowWithDivider)}>
-        <Button disabled>Checkout</Button>
+        <Button onClick={props.onCheckout}>Checkout</Button>
       </div>
     </div>
   )
