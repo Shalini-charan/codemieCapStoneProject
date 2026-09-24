@@ -20,7 +20,7 @@ export const productDetailsApi = generatedApi.enhanceEndpoints<
       GetProductDetailsApiArg,
       AppBaseQuery,
       ApiTagTypes,
-      ProductDetails,
+      ProductDetails | null,
       'api'
     >
   }

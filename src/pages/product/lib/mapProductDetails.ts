@@ -2,7 +2,9 @@ import type { ProductId } from '@/entities/product'
 import type { ProductDetails as ProductDetailsDto } from '@/shared/api'
 import type { ProductDetails } from '../model/types'
 
-export function mapProductDetails(dto: ProductDetailsDto): ProductDetails {
+export function mapProductDetails(dto: ProductDetailsDto | null): ProductDetails | null {
+  if (!dto)
+    return null
   return {
     id: dto.id as ProductId,
     stock: dto.stock,
