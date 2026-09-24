@@ -17,9 +17,20 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'chromium-no-sw',
+      use: {
+        ...devices['Desktop Chrome'],
+        // Block service workers so page.route() can intercept all API calls.
+        // Used by comprehensive QA tests that need predictable wishlist state.
+        serviceWorkers: 'block',
+      },
+    },
   ],
   webServer: {
-    command: 'pnpm start',
+    // Use vite directly to skip the prestart env validation script
+    // (validateEnv.sh uses bash-only sed syntax that fails on Windows)
+    command: 'node_modules/.bin/vite',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
