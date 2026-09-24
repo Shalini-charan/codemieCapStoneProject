@@ -15,12 +15,35 @@ const pageParamsSchema = z.object({
 
 export function ProductPage() {
   const { productId } = useTypedParams(pageParamsSchema)
-  const { data, isFetching } = useGetProductDetailsQuery({ id: productId })
-  const isNotFound = !isFetching && !data
+  const { data, isFetching, isLoading, isError } = useGetProductDetailsQuery({ id: productId })
+
+  /**
+   * Use isLoading for only first loading (no cached data yet)
+   * For subsequent loading use isFetching
+   */
+  if (isLoading) {
+    return (
+      <div data-testid="product-page-loading">
+        <h1 className="text_2xl">Loading...</h1>
+      </div>
+    )
+  }
+
+  if (isError) {
+    return (
+      <div data-testid="product-page-error">
+        Failed to load product. Please try again.
+        {' '}
+        <Link to="/">Back to main page</Link>
+      </div>
+    )
+  }
+
+  const isNotFound = !isLoading && !isFetching && !isError && !data
 
   if (isNotFound) {
     return (
-      <div>
+      <div data-testid="product-page-not-found">
         Product not found, go to
         {' '}
         <Link to="/">main page</Link>
