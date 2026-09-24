@@ -93,6 +93,7 @@ export default antfu(
       'eslint.config.mjs',
       'steiger.config.js',
       'public/mockServiceWorker.js',
+      'playwright.config.ts',
     ],
     rules: {
       'eslint-comments/no-unlimited-disable': 'off',
