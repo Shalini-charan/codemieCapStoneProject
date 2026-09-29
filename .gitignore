@@ -35,3 +35,8 @@ debug-storybook.log
 !.agents/skills/
 .agents/skills/*
 !.agents/skills/figma/
+
+# Playwright test output
+test-results/
+playwright-report/
+debug-screenshot.png

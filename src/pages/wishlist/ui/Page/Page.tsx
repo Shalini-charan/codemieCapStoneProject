@@ -30,6 +30,10 @@ export function WishlistPage() {
     })
   }, [])
 
+  const onBrowseProducts = useCallback(() => {
+    navigate('/')
+  }, [navigate])
+
   const products = useMemo(
     () => wishlistProducts.map(mapProductToCompactView),
     [wishlistProducts],
@@ -55,6 +59,7 @@ export function WishlistPage() {
         <div>
           <div>Login to see your wishlist.</div>
           <Button onClick={onLogin}>Login</Button>
+          <Button onClick={onBrowseProducts} variant="secondary">Browse products</Button>
         </div>
       )
     }
@@ -66,8 +71,8 @@ export function WishlistPage() {
     if (!isFetching && products.length === 0) {
       return (
         <div>
-          There are no products in your wishlist. Add someone by clicking on the
-          &quot;heart&quot; icon
+          <div>There are no products in your wishlist. Add some by clicking the heart icon.</div>
+          <Button onClick={onBrowseProducts}>Browse products</Button>
         </div>
       )
     }
@@ -83,7 +88,7 @@ export function WishlistPage() {
         />
       </div>
     )
-  }, [isAuthorized, isFetching, products, quantityByProductId, renderActions, handleProductClick])
+  }, [isAuthorized, isFetching, products, quantityByProductId, renderActions, handleProductClick, onBrowseProducts])
 
   const title = `Wishlist ${
     isAuthorized && products.length > 0

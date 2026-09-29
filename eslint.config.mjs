@@ -7,6 +7,8 @@ export default antfu(
   {
     ignores: [
       'src/shared/api/generated/**',
+      'test-results/**',
+      'playwright-report/**',
     ],
     formatters: {
       css: true,
