@@ -9,6 +9,7 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
+import type { ProductId } from '@/entities/product/@x/cart'
 import { CartPage } from './Page'
 import { renderWithProviders, makeCartLine, makeProduct } from '@/test/test-utils'
 
