@@ -27,6 +27,10 @@ export function CartPage() {
     navigate('/')
   }, [navigate])
 
+  const handleCheckoutClick = useCallback(() => {
+    navigate('/user/checkout')
+  }, [navigate])
+
   if (!isAuthorized) {
     return (
       <div>
@@ -67,7 +71,7 @@ export function CartPage() {
       </div>
       <div className={css.column}>
         <h1>Summary</h1>
-        <CartSummary totalPrice={totalPrice} />
+        <CartSummary totalPrice={totalPrice} onCheckout={handleCheckoutClick} />
       </div>
     </div>
   )
