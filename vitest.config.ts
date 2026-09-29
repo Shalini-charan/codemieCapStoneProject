@@ -14,6 +14,15 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'html'],
     },
+    // Provide required Vite env variables for the test environment
+    env: {
+      VITE_API_ENDPOINT: 'http://localhost:3000',
+      VITE_API_DELAY: '1',
+      VITE_API_STORAGE_MODE: 'session',
+      VITE_API_USER_EMAIL: 'user@nukeapp.com',
+      VITE_API_USER_PASSWORD: '37fVgE',
+      VITE_JWT_SECRET: 'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
+    },
   },
   resolve: {
     alias: [
