@@ -6,6 +6,7 @@ import { db, dbHydration } from './serverDb'
 type CreateUserParams = {
   email: string
   password: string
+  wishlistProductIds?: number[]
 }
 
 const idCounters: Record<string, number> = {}
@@ -17,12 +18,13 @@ function generateId(tableName: string) {
 }
 
 async function createUser(userData: CreateUserParams) {
-  const user = await db.user.create({ ...userData, id: generateId('user') })
+  const { wishlistProductIds = [], ...userFields } = userData
+  const user = await db.user.create({ ...userFields, id: generateId('user') })
 
   await db.wishlist.create({
     id: generateId('wishlist'),
     user,
-    productIds: [3, 4, 5, 6, 7],
+    productIds: wishlistProductIds,
   })
 
   await db.cart.create({
@@ -53,12 +55,14 @@ export async function startDatabaseMigration(shouldReset: boolean) {
     return
   }
 
-  // create test users
+  // Primary test user: empty cart and empty wishlist for testing empty states
   await createUser({
     email: env.VITE_API_USER_EMAIL,
     password: env.VITE_API_USER_PASSWORD,
+    wishlistProductIds: [],
   })
-  await createUser({ email: 'test@ya.ru', password: '123456' })
+  // Secondary user: pre-populated wishlist for testing non-empty state
+  await createUser({ email: 'test@ya.ru', password: '123456', wishlistProductIds: [3, 4, 5, 6, 7] })
 
   for (const row of categoriesMock) {
     await db.category.create(row)
