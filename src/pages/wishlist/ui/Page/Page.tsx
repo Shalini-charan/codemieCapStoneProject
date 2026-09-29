@@ -28,7 +28,7 @@ export function WishlistPage() {
     navigate('/login', {
       state: { returnUrl: `/user/wishlist` },
     })
-  }, [])
+  }, [navigate])
 
   const onBrowseProducts = useCallback(() => {
     navigate('/')

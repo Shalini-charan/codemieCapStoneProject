@@ -21,7 +21,7 @@ export function CartPage() {
     navigate('/login', {
       state: { returnUrl: `/user/cart` },
     })
-  }, [])
+  }, [navigate])
 
   const onBrowseProducts = useCallback(() => {
     navigate('/')
