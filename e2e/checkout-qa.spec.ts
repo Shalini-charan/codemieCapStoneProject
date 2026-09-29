@@ -15,7 +15,8 @@ async function login(page: import('@playwright/test').Page) {
     () => {
       try {
         const raw = localStorage.getItem('@@remember-session')
-        if (!raw) return false
+        if (!raw)
+          return false
         return JSON.parse(raw).isAuthorized === true
       }
       catch { return false }

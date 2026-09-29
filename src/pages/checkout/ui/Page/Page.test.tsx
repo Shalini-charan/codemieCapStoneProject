@@ -8,11 +8,11 @@
  * - Place Order action: transitions to order confirmation state
  * - Continue Shopping: navigates back to home
  */
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
+import { makeCartLine, makeProduct, renderWithProviders } from '@/test/test-utils'
 import { CheckoutPage } from './Page'
-import { renderWithProviders, makeProduct, makeCartLine } from '@/test/test-utils'
 
 // Mock useNavigate to capture navigation calls
 const mockNavigate = vi.fn()
@@ -24,12 +24,12 @@ vi.mock('react-router-dom', async () => {
   }
 })
 
-describe('CheckoutPage (EPMCDMETST-67098)', () => {
+describe('checkoutPage (EPMCDMETST-67098)', () => {
   beforeEach(() => {
     mockNavigate.mockClear()
   })
 
-  describe('Empty cart state', () => {
+  describe('empty cart state', () => {
     it('shows an empty-cart message when cart has no items', () => {
       renderWithProviders(<CheckoutPage />, { cartLines: [] })
 
@@ -61,7 +61,7 @@ describe('CheckoutPage (EPMCDMETST-67098)', () => {
     })
   })
 
-  describe('Cart with items state', () => {
+  describe('cart with items state', () => {
     it('shows Order Total when cart has items', () => {
       const cartLines = [makeCartLine(makeProduct({ price: 1000 as Penny }))]
 
@@ -99,7 +99,7 @@ describe('CheckoutPage (EPMCDMETST-67098)', () => {
     })
   })
 
-  describe('Place Order flow — Acceptance Criterion 3', () => {
+  describe('place order flow — acceptance criterion 3', () => {
     it('transitions to order confirmation state when Place Order is clicked', async () => {
       const cartLines = [makeCartLine()]
       const user = userEvent.setup()
@@ -153,7 +153,7 @@ describe('CheckoutPage (EPMCDMETST-67098)', () => {
     })
   })
 
-  describe('Continue Shopping navigation', () => {
+  describe('continue shopping navigation', () => {
     it('navigates to "/" when Continue Shopping is clicked from checkout page', async () => {
       const cartLines = [makeCartLine()]
       const user = userEvent.setup()

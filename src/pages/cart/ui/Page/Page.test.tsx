@@ -10,8 +10,8 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import type { ProductId } from '@/entities/product/@x/cart'
+import { makeCartLine, makeProduct, renderWithProviders } from '@/test/test-utils'
 import { CartPage } from './Page'
-import { renderWithProviders, makeCartLine, makeProduct } from '@/test/test-utils'
 
 const mockNavigate = vi.fn()
 vi.mock('react-router-dom', async () => {
@@ -40,12 +40,12 @@ vi.mock('@/entities/session', async () => {
   }
 })
 
-describe('CartPage — checkout navigation (EPMCDMETST-67098)', () => {
+describe('cartPage — checkout navigation (EPMCDMETST-67098)', () => {
   beforeEach(() => {
     mockNavigate.mockClear()
   })
 
-  describe('Empty cart state (authorized user)', () => {
+  describe('empty cart state (authorized user)', () => {
     it('shows an empty bag message when cart has no items', () => {
       renderWithProviders(<CartPage />, {
         cartLines: [],
@@ -78,7 +78,7 @@ describe('CartPage — checkout navigation (EPMCDMETST-67098)', () => {
     })
   })
 
-  describe('Cart with items state — handleCheckoutClick', () => {
+  describe('cart with items state — handleCheckoutClick', () => {
     it('shows the Checkout button when cart has items', () => {
       const cartLines = [makeCartLine()]
 

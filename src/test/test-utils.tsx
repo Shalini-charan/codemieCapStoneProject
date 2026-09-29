@@ -6,11 +6,11 @@ import type { ReactNode } from 'react'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
-import { makeStore } from '@/shared/lib/redux'
-import { cartSlice } from '@/entities/cart/model/slice'
-import { sessionSlice } from '@/entities/session'
 import type { CartLine } from '@/entities/cart'
+import { cartSlice } from '@/entities/cart/model/slice'
 import type { Product, ProductId } from '@/entities/product/@x/cart'
+import { sessionSlice } from '@/entities/session'
+import { makeStore } from '@/shared/lib/redux'
 
 /** Create a Product fixture for tests */
 export function makeProduct(overrides?: Partial<Product>): Product {
@@ -53,10 +53,8 @@ export function renderWithProviders(
   { cartLines = [], isAuthorized = true, initialPath = '/' }: RenderOptions = {},
 ) {
   // Inject slices so their selectors work (lazy-loaded slice pattern)
-  // eslint-disable-next-line no-unused-expressions
-  cartSlice
-  // eslint-disable-next-line no-unused-expressions
-  sessionSlice
+  void cartSlice
+  void sessionSlice
 
   const store = makeStore({ persisted: false })
 
@@ -84,7 +82,7 @@ export function renderWithProviders(
 
   // Populate cart if cartLines provided
   if (cartLines.length > 0) {
-    cartLines.forEach(line => {
+    cartLines.forEach((line) => {
       for (let i = 0; i < line.quantity; i++) {
         store.dispatch(cartSlice.actions.addOneItem(line.product))
       }

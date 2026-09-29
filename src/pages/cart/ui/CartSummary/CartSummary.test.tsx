@@ -12,8 +12,8 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { CartSummary } from './CartSummary'
 
-describe('CartSummary — Checkout button (EPMCDMETST-67098)', () => {
-  describe('Acceptance Criterion 1: Checkout button is disabled when cart is empty', () => {
+describe('cartSummary — checkout button (EPMCDMETST-67098)', () => {
+  describe('acceptance criterion 1: checkout button is disabled when cart is empty', () => {
     it('renders the Checkout button as disabled when totalPrice is 0', () => {
       render(<CartSummary totalPrice={0} />)
 
@@ -34,7 +34,7 @@ describe('CartSummary — Checkout button (EPMCDMETST-67098)', () => {
     })
   })
 
-  describe('Acceptance Criterion 2: Checkout button is enabled when cart has items', () => {
+  describe('acceptance criterion 2: checkout button is enabled when cart has items', () => {
     it('renders the Checkout button as enabled when totalPrice > 0', () => {
       render(<CartSummary totalPrice={1000} />)
 
@@ -57,7 +57,7 @@ describe('CartSummary — Checkout button (EPMCDMETST-67098)', () => {
     })
   })
 
-  describe('Acceptance Criterion 3: Checkout navigation callback', () => {
+  describe('acceptance criterion 3: checkout navigation callback', () => {
     it('calls onCheckout when the enabled Checkout button is clicked', async () => {
       const onCheckout = vi.fn()
       const user = userEvent.setup()
@@ -75,7 +75,7 @@ describe('CartSummary — Checkout button (EPMCDMETST-67098)', () => {
     })
   })
 
-  describe('CartSummary display (regression)', () => {
+  describe('cartSummary display (regression)', () => {
     it('displays the Checkout button text', () => {
       render(<CartSummary totalPrice={500} />)
       expect(screen.getByRole('button', { name: /checkout/i })).toBeInTheDocument()
