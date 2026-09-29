@@ -91,6 +91,7 @@ export default antfu(
     files: [
       '**/*.stories.tsx',
       'vite.config.mts',
+      'playwright.config.ts',
       'openapi-config.ts',
       'eslint.config.mjs',
       'steiger.config.js',
