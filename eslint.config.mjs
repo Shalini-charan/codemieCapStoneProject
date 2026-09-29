@@ -91,10 +91,13 @@ export default antfu(
     files: [
       '**/*.stories.tsx',
       'vite.config.mts',
+      'vitest.config.ts',
+      'playwright.config.ts',
       'openapi-config.ts',
       'eslint.config.mjs',
       'steiger.config.js',
       'public/mockServiceWorker.js',
+      'src/test/svg-mock.ts',
     ],
     rules: {
       'eslint-comments/no-unlimited-disable': 'off',

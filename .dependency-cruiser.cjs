@@ -6,7 +6,7 @@ module.exports = {
       comment:
         'Code outside of entities should not depend on entities, except app, features, pages and widgets',
       severity: 'error',
-      from: { pathNot: ['^src/entities', '^src/features', '^src/pages', '^src/widgets', '^src/app'] },
+      from: { pathNot: ['^src/entities', '^src/features', '^src/pages', '^src/widgets', '^src/app', '^src/test'] },
       to: { path: '^src/entities' },
     },
     {
@@ -237,6 +237,8 @@ module.exports = {
         path: '^(src)',
         pathNot: [
           '[.](?:spec|test)[.](?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$',
+          // test support utilities (setup, mocks, render helpers) — dev-only by definition
+          '^src/test/',
           // ambient declarations file; references vite/svgr types only,
           // no runtime dependency ships from it
           'src/vite-env[.]d[.]ts$',
