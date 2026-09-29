@@ -1,5 +1,6 @@
 # Feature: EPMCDMETST-67098 — Enable Checkout button when cart has items (basic checkout entry)
 # Jira: https://jiraeu.epam.com/browse/EPMCDMETST-67098
+# Last updated: 2026-09-29
 
 Feature: Checkout button state and navigation based on cart contents
 
