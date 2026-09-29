@@ -5,11 +5,23 @@ const USER_PASSWORD = '37fVgE'
 
 async function login(page: import('@playwright/test').Page) {
   await page.goto('/login')
-  await page.getByLabel('Email').fill(USER_EMAIL)
-  await page.getByLabel('Password').fill(USER_PASSWORD)
+  // Use input[type] selectors -- LoginForm labels are not associated with inputs
+  // via htmlFor/id, so getByLabel() is unreliable here.
+  await page.locator('input[type="email"]').fill(USER_EMAIL)
+  await page.locator('input[type="password"]').fill(USER_PASSWORD)
   await page.getByRole('button', { name: 'Login' }).click()
   // After login, the AuthGuard redirects away from /login
   await page.waitForURL(url => !url.pathname.includes('/login'))
+}
+
+async function goToWishlistViaSpa(page: import('@playwright/test').Page) {
+  // Use SPA navigation to avoid redux-remember rehydration race with GuestGuard
+  // on hard page.goto() after login
+  await expect(page.locator('[data-fsd="page/main/Page"]')).toBeVisible({ timeout: 10000 })
+  const wishlistLink = page.locator('a[href="/user/wishlist"]').first()
+  await expect(wishlistLink).toBeVisible({ timeout: 5000 })
+  await wishlistLink.click()
+  await expect(page.locator('[data-fsd="page/wishlist/Page"]')).toBeVisible({ timeout: 10000 })
 }
 
 test.describe('Wishlist empty state', () => {
@@ -18,10 +30,7 @@ test.describe('Wishlist empty state', () => {
   })
 
   test('1. Authenticated user with empty wishlist sees corrected guidance text and Browse products button', async ({ page }) => {
-    await page.goto('/user/wishlist')
-
-    const wishlistRoot = page.locator('[data-fsd="page/wishlist/Page"]')
-    await expect(wishlistRoot).toBeVisible({ timeout: 10000 })
+    await goToWishlistViaSpa(page)
 
     // Wait for loading to complete (Fetching... should disappear)
     await expect(page.getByText('Fetching...')).not.toBeVisible({ timeout: 10000 })
@@ -36,10 +45,7 @@ test.describe('Wishlist empty state', () => {
   })
 
   test('2. Clicking Browse products navigates to the main catalog page', async ({ page }) => {
-    await page.goto('/user/wishlist')
-
-    const wishlistRoot = page.locator('[data-fsd="page/wishlist/Page"]')
-    await expect(wishlistRoot).toBeVisible({ timeout: 10000 })
+    await goToWishlistViaSpa(page)
 
     // Wait for loading to complete
     await expect(page.getByText('Fetching...')).not.toBeVisible({ timeout: 10000 })

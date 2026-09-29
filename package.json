@@ -24,7 +24,8 @@
     "lint:types": "tsc --noEmit",
     "lint:steiger": "steiger src",
     "lint:dependency-cruiser": "depcruise src",
-    "depcruise": "depcruise src --include-only '^src' --output-type dot | dot -T svg > dependency-graph.svg"
+    "depcruise": "depcruise src --include-only '^src' --output-type dot | dot -T svg > dependency-graph.svg",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@ebay/nice-modal-react": "1.2.13",
@@ -52,6 +53,7 @@
     "@eslint/js": "10.0.1",
     "@faker-js/faker": "10.6.0",
     "@feature-sliced/steiger-plugin": "0.7.0",
+    "@playwright/test": "^1.63.0",
     "@rtk-query/codegen-openapi": "^2.2.0",
     "@storybook/addon-docs": "10.5.10",
     "@storybook/addon-links": "10.5.10",
