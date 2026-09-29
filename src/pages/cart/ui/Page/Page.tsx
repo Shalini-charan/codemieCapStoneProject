@@ -21,7 +21,11 @@ export function CartPage() {
     navigate('/login', {
       state: { returnUrl: `/user/cart` },
     })
-  }, [])
+  }, [navigate])
+
+  const onBrowseProducts = useCallback(() => {
+    navigate('/')
+  }, [navigate])
 
   if (!isAuthorized) {
     return (
@@ -30,6 +34,7 @@ export function CartPage() {
         <div>
           <div>Login to see your cart.</div>
           <Button onClick={onLogin}>Login</Button>
+          <Button onClick={onBrowseProducts} variant="secondary">Browse products</Button>
         </div>
       </div>
     )
@@ -46,6 +51,7 @@ export function CartPage() {
               There are no products in your bag. Add someone and return.
             </div>
           )}
+          <Button onClick={onBrowseProducts}>Browse products</Button>
         </div>
       </div>
     )
