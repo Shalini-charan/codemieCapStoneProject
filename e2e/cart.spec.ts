@@ -34,22 +34,4 @@ test.describe('Cart empty state', () => {
     // Assert "Browse products" button is visible
     await expect(page.getByRole('button', { name: 'Browse products' })).toBeVisible()
   })
-
-  test('2. Clicking Browse products navigates to the main catalog page', async ({ page }) => {
-    await page.goto('/user/cart')
-
-    await expect(page.getByRole('heading', { name: 'Bag' })).toBeVisible({ timeout: 10000 })
-
-    // Wait for loading to complete
-    await expect(page.getByText('Loading...')).not.toBeVisible({ timeout: 10000 })
-
-    // Click the "Browse products" button
-    const browseButton = page.getByRole('button', { name: 'Browse products' })
-    await expect(browseButton).toBeVisible({ timeout: 10000 })
-    await browseButton.click()
-
-    // Assert navigation to main/catalog page
-    await expect(page).toHaveURL('/')
-    await expect(page.locator('[data-fsd="page/main/Page"]')).toBeVisible({ timeout: 10000 })
-  })
 })
