@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { selectIsAuthorized } from '@/entities/session'
 import { CartPage } from '@/pages/cart'
 import { CategoryPage } from '@/pages/category'
+import { CheckoutPage } from '@/pages/checkout'
 import { LoginPage } from '@/pages/login'
 import { MainPage } from '@/pages/main'
 import { ProductPage } from '@/pages/product'
@@ -63,6 +64,14 @@ export function appRouter() {
           element: (
             <GuestGuard>
               <CartPage />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: '/user/checkout',
+          element: (
+            <GuestGuard>
+              <CheckoutPage />
             </GuestGuard>
           ),
         },
